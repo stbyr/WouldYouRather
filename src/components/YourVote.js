@@ -2,14 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import '../index.css'
 import PropTypes from 'prop-types'
-import NotFound from './NotFound'
+import Redirecter from './Redirect'
 
 class YourVote extends React.Component {
 	render() {
-		if (!this.props.questions[this.props.questionId]) {
-			return <NotFound/>
-		}
-
 		const question = this.props.questions[this.props.questionId]
 		const author = question.author
 		const name = this.props.users[author].name 
@@ -27,6 +23,7 @@ class YourVote extends React.Component {
 
 		return (
 			<div className="flex-container">
+				<Redirecter referrer={`/questions/${this.props.questionId}`} />
 				<div className="container results-container">
 					<div className="whoAsks">
 						<h4>Asked by {name}</h4>
@@ -88,7 +85,10 @@ function mapStateToProps ({ users, questions, authedUser }) {
 }
 
 YourVote.propTypes = {
-	questionId: PropTypes.string.isRequired 
+	questionId: PropTypes.string.isRequired,
+	users: PropTypes.object.isRequired,
+	questions: PropTypes.object.isRequired,
+	authedUser: PropTypes.string.isRequired
 }
 
 export default connect(mapStateToProps)(YourVote)

@@ -13,7 +13,7 @@ import NotFound from './NotFound'
 
 class App extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(handleInitialData())
+		this.props.handleInitialData()
 	}
 
 	render() {
@@ -29,18 +29,8 @@ class App extends React.Component {
 					      	<Route path="/login" component={Login} />
 					      	<Route path="/add" component={NewQuestion} />
 					      	<Route path="/leaderboard" component={Leaderboard} />
-					      	<Route 
-					      		path="/questions/:id" exact  
-					      		render={(props) => (
-									<QuestionPage {...props} result={false} />
-								)}
-					      	/>
-					      	<Route 
-					      		path="/questions/:id/result"
-					      		render={(props) => (
-									<QuestionPage {...props} result={true} />
-								)} 
-					      	/>
+					      	<Route path="/questions/:id" component={QuestionPage} />
+					      	<Route path="/notfound" component={NotFound} />
 					      	<Route component={NotFound} />
 				      	</Switch>
 				    </div>
@@ -50,4 +40,4 @@ class App extends React.Component {
 	}  
 }
 
-export default connect()(App)
+export default connect(null, { handleInitialData })(App)

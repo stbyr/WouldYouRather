@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import '../index.css'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { handleSubmitAnswer } from '../actions/shared'
+import { setResultActive } from '../actions/toggleQuestionResult'
 
 class QuestionDetail extends React.Component {
 	state = {
@@ -19,6 +20,8 @@ class QuestionDetail extends React.Component {
 			answer: radio,
 			authedUser
 		}))
+
+		dispatch(setResultActive())
 	};
 
 	isChecked = () => {
@@ -31,13 +34,9 @@ class QuestionDetail extends React.Component {
 	};
 
 	render() {
-		const { id, questions, authedUser } = this.props
-		const textOne = questions[id].optionOne.text
-		const textTwo = questions[id].optionTwo.text
-
-		if (!authedUser) {
-			return <Redirect to="/login" />
-		}
+		const { id, questions } = this.props
+		const textOne = questions[id] ? questions[id].optionOne.text : null
+		const textTwo = questions[id] ? questions[id].optionTwo.text : null
 
 		return (
 			<div className="question-container">
@@ -66,7 +65,7 @@ class QuestionDetail extends React.Component {
 	                />
 	                <label htmlFor="optionTwo">{textTwo}</label>
                 </div>
-                <Link to={`/questions/${id}/result`} >
+                <Link to={`/questions/${id}`} >
                 	<button onClick={this.handleSubmit} disabled={this.state.active}>Submit</button>
                 </Link>
 			</div>
@@ -82,7 +81,9 @@ function mapStateToProps ({ questions, authedUser }) {
 }
 
 QuestionDetail.propTypes = {
-	id: PropTypes.string.isRequired 
+	id: PropTypes.string.isRequired,
+	questions: PropTypes.object.isRequired,
+	authedUser: PropTypes.string 
 }
 
 export default connect(mapStateToProps)(QuestionDetail)

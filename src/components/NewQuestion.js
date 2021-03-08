@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import '../index.css'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { handleCreateQuestion } from '../actions/shared'
+import Redirecter from './Redirect'
 
 class NewQuestion extends React.Component {
 	state = {
@@ -23,15 +24,11 @@ class NewQuestion extends React.Component {
 	};
 
 	render() {
-		const { authedUser } = this.props 
 		const disabled = this.state.optionOneText && this.state.optionTwoText ? false : true 
-
-		if (!authedUser) {
-			return <Redirect to="/login" />
-		}
 
 		return (
 			<div className="flex-container">
+				<Redirecter referrer="/add" />
 				<div className="create-question-container">
 					<div className="create-question-header">
 						<h2>Create New Question</h2>
@@ -69,10 +66,4 @@ class NewQuestion extends React.Component {
 	}
 }
 
-function mapStateToProps ({ authedUser }) {
-	return {
-    	authedUser  
-  	};
-}
-
-export default connect(mapStateToProps)(NewQuestion)
+export default connect()(NewQuestion)

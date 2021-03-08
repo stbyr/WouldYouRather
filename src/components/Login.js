@@ -33,7 +33,7 @@ class Login extends React.Component {
   };
 
   render() {
-    const { users } = this.props 
+    const { users } = this.props  
 
     return (
       <div className="flex-container">
@@ -68,7 +68,7 @@ class Login extends React.Component {
               <div className="selected" onClick={this.handleClick}>{this.state.userSelected ? this.state.selectedUserName : 'Select user'}</div>
             </div>
 
-            <Link to="/" className="submit-btn">
+            <Link to={this.props.location.state ? this.props.location.state.referrer : '/'} className="submit-btn">
               <button onClick={this.handleSubmit} disabled={!this.state.userSelected}>Sign In</button>
             </Link>
           </div>
