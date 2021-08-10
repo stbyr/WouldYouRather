@@ -20,7 +20,8 @@ class Redirecter extends React.Component {
 
     else {
       return null 
-    }
+    } 
+
 	}
 }
 

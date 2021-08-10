@@ -12,14 +12,18 @@ class QuestionDetail extends React.Component {
 	}
 
 	handleSubmit = () => {
-		const { dispatch, authedUser, id } = this.props
+		const { dispatch, authedUser } = this.props
 		const radio = document.querySelector('input[name="question"]:checked').value
 
-		dispatch(handleSubmitAnswer({
-			qid: id,
-			answer: radio,
-			authedUser
-		}))
+		const id = this.props.questions[this.props.id] ? this.props.id : null
+
+		if (id !== null && authedUser) {
+			dispatch(handleSubmitAnswer({
+				qid: id,
+				answer: radio,
+				authedUser
+			}))
+		}
 
 		dispatch(setResultActive())
 	};

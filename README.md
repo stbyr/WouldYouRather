@@ -11,7 +11,6 @@ Install all project dependencies:
 
 ```bash
 npm install 
-npm install --save react-redux redux redux-thunk react-router-dom react-redux-loading-bar prop-types
 ````
 
 Start the development server:
@@ -19,6 +18,12 @@ Start the development server:
 ```bash 
 npm start
 ````
+
+## Video demonstration
+
+Click here for a short video demonstration of the app:
+
+[![Watch the video](https://img.youtube.com/vi/jic1CA5Lfqk/maxresdefault.jpg)](https://www.youtube.com/watch?v=jic1CA5Lfqk)
 
 ## Desktop View Recommendation
 
